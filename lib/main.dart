@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+
+// FIREBASE PACKAGES
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -104,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times',
+              'You have pushed the button this many times:',
             ),
             Text(
               '$_counter',
@@ -119,5 +122,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+void createUser(String emailAddress, String password) async {
+  try {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      email: emailAddress,
+      password: password,
+    );
+  } on FirebaseAuthException catch (e) {
+    if (e.code == 'weak-password') {
+      debugPrint('The password provided is too weak.');
+    } else if (e.code == 'email-already-in-use') {
+      debugPrint('The account exists got that email.');
+    }
+  } catch (e) {
+    debugPrint(e.toString());
   }
 }
