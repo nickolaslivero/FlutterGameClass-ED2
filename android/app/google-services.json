@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "585831821490",
+    "firebase_url": "https://gameclass-6f9ab-default-rtdb.firebaseio.com",
+    "project_id": "gameclass-6f9ab",
+    "storage_bucket": "gameclass-6f9ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585831821490:android:0a6c5b0c2a560e026899ab",
+        "android_client_info": {
+          "package_name": "com.example.empreendedorismodigital2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "585831821490-nbveft8emdf15rg4eg66o51kclha29n3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ7DUC0mDcp7prsnGmRdGk0lCHUYUZH9Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "585831821490-nbveft8emdf15rg4eg66o51kclha29n3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "585831821490-clebbspq4jqjpnbsemir2pm9na2sm5b2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.empreendedorismodigital2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
