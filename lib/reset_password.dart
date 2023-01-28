@@ -9,7 +9,11 @@ class PasswordResetScreen extends StatefulWidget {
 
 class PasswordResetScreenState extends State<PasswordResetScreen> {
   final _formKey = GlobalKey<FormState>();
-  late String _email;
+  String? _email;
+
+  bool _isEmailValid(String email) => RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(email);
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +30,23 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
               children: <Widget>[
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (input) =>
-                      input!.contains('@') ? null : 'Insira um email válido',
+                  validator: (input) {
+                    if (input!.isEmpty || !_isEmailValid(input)) {
+                      return 'Insira um email válido';
+                    }
+                    return null;
+                  },
                   onSaved: (input) => _email = input!,
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: (){
+                    if (_email != null) {
+                      _submit(_email);
+                    } else {
+                      _formKey.currentState!.validate();
+                    }
+                  },
                   child: const Text('Enviar'),
                 ),
               ],
@@ -43,7 +57,7 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
     );
   }
 
-  _submit() async {
+  _submit(email) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
@@ -51,7 +65,7 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
         // Exemplo: await auth.sendPasswordResetEmail(_email);
         Navigator.pop(context);
       } catch (e) {
-        print(e);
+        //print(e);
       }
     }
   }

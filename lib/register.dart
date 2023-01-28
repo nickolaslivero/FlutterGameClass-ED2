@@ -10,8 +10,15 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  late String _nome, _email, _password;
-  String? _accountType;
+  String? _name, _email, _password, _accountType = 'Aluno';
+
+  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z]+$").hasMatch(name);
+
+  bool _isEmailValid(String email) => RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(email);
+
+  bool _isPasswordValid(String password) => password.length >= 6;
 
   @override
   Widget build(BuildContext context) {
@@ -28,44 +35,59 @@ class RegisterScreenState extends State<RegisterScreen> {
               children: <Widget>[
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Nome'),
-                  validator: (input) =>
-                      input == null ? null : 'Insira um nome válido',
-                  onSaved: (input) => _nome = input!,
+                  validator: (input) {
+                    if (input!.isEmpty) {
+                      return 'Insira um nome válido';
+                    } else if (!_isNameValid(input)) {
+                      return 'Insira um nome sem caracteres especiais ou números';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) => _name = input,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (input) =>
-                      !input!.contains('@') ? 'Insira um email válido' : null,
-                  onSaved: (input) => _email = input!,
+                  validator: (input) {
+                    if (input!.isEmpty || !_isEmailValid(input)) {
+                      return 'Insira um email válido';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) => _email = input,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Senha'),
                   obscureText: true,
-                  validator: (input) => input!.length < 6
-                      ? 'A senha deve ter mais de 6 caracteres'
-                      : null,
-                  onSaved: (input) => _password = input!,
+                  validator: (input) {
+                    if (input!.isEmpty) {
+                      return 'Insira uma senha válida';
+                    } else if (!_isPasswordValid(input)) {
+                      return 'A senha deve ter pelo menos 6 caracteres';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) => _password = input,
                 ),
+                const SizedBox(height: 10.0),
                 Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: <Widget>[
                     RadioListTile(
-                      title: const Text("Aluno"),
-                      value: "aluno",
+                      value: 'Aluno',
                       groupValue: _accountType,
+                      title: const Text('Aluno'),
                       onChanged: (value) {
                         setState(() {
-                          _accountType = value.toString();
+                          _accountType = value!;
                         });
                       },
                     ),
                     RadioListTile(
-                      title: const Text("Professor"),
-                      value: "professor",
+                      value: 'Professor',
                       groupValue: _accountType,
+                      title: const Text('Professor'),
                       onChanged: (value) {
                         setState(() {
-                          _accountType = value.toString();
+                          _accountType = value!;
                         });
                       },
                     ),
@@ -73,7 +95,13 @@ class RegisterScreenState extends State<RegisterScreen> {
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: () {
+                    if (_name != null && _email != null && _password != null) {
+                      _submit(_name, _email, _password, _accountType);
+                    } else {
+                      _formKey.currentState!.validate();
+                    }
+                  },
                   child: const Text('Cadastrar'),
                 ),
                 TextButton(
@@ -94,14 +122,18 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  _submit() async {
+  _submit(name, email, password, acctype) async {
+    print(name);
+    print(email);
+    print(password);
+    print(acctype);
+
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
         // Autenticação com o servidor
-        Navigator.pushReplacementNamed(context, '/home');
       } catch (e) {
-        print(e);
+        // print(e);
       }
     }
   }

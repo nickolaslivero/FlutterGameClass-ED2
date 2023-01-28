@@ -12,7 +12,13 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  late String _email, _password;
+  String? _email, _password;
+
+  bool _isEmailValid(String email) => RegExp(
+          r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+      .hasMatch(email);
+
+  bool _isPasswordValid(String password) => password.length >= 6;
 
   @override
   Widget build(BuildContext context) {
@@ -29,21 +35,36 @@ class LoginScreenState extends State<LoginScreen> {
               children: <Widget>[
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
-                  validator: (input) =>
-                      !input!.contains('@') ? 'Insira um email válido' : null,
-                  onSaved: (input) => _email = input!,
+                  validator: (input) {
+                    if (input!.isEmpty || !_isEmailValid(input)) {
+                      return 'Insira um email válido';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) => _email = input,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Senha'),
                   obscureText: true,
-                  validator: (input) => input!.length < 6
-                      ? 'A senha deve ter mais de 6 caracteres'
-                      : null,
-                  onSaved: (input) => _password = input!,
+                  validator: (input) {
+                    if (input!.isEmpty) {
+                      return 'Insira uma senha válida';
+                    } else if (!_isPasswordValid(input)) {
+                      return 'A senha deve ter pelo menos 6 caracteres';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) => _password = input,
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
-                  onPressed: _submit,
+                  onPressed: () {
+                    if (_email != null && _password != null) {
+                      _submit(_email, _password);
+                    } else {
+                      _formKey.currentState!.validate();
+                    }
+                  },
                   child: const Text('Entrar'),
                 ),
                 TextButton(
@@ -74,18 +95,19 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _submit() async {
+  _submit(email, password) async {
+    print(email);
+    print(password);
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
         // Autenticação com o servidor
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-              builder: (context) => const HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       } catch (e) {
-        print(e);
+        //print(e);
       }
     }
   }
