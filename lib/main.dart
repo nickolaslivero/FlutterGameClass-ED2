@@ -1,4 +1,4 @@
-import 'package:empreendedorismodigital2/login.dart';
+import 'package:empreendedorismodigital2/src/features/login/login.dart';
 import 'package:flutter/material.dart';
 
 // FIREBASE PACKAGES
@@ -28,22 +28,5 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: const LoginScreen());
-  }
-}
-
-void createUser(String emailAddress, String password) async {
-  try {
-    await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: emailAddress,
-      password: password,
-    );
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'weak-password') {
-      debugPrint('The password provided is too weak.');
-    } else if (e.code == 'email-already-in-use') {
-      debugPrint('The account exists got that email.');
-    }
-  } catch (e) {
-    debugPrint(e.toString());
   }
 }

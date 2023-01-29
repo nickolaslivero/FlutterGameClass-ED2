@@ -1,6 +1,6 @@
-import 'package:empreendedorismodigital2/home_screen.dart';
-import 'package:empreendedorismodigital2/register.dart';
-import 'package:empreendedorismodigital2/reset_password.dart';
+import 'package:empreendedorismodigital2/src/features/home/homeScreen.dart';
+import 'package:empreendedorismodigital2/src/features/register/register.dart';
+import 'package:empreendedorismodigital2/src/features/resetPassword/reset_password.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {

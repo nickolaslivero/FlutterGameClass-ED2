@@ -1,4 +1,4 @@
-import 'package:empreendedorismodigital2/login.dart';
+import 'package:empreendedorismodigital2/src/features/login/login.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {

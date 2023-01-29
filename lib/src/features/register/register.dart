@@ -1,5 +1,6 @@
-import 'package:empreendedorismodigital2/login.dart';
+import 'package:empreendedorismodigital2/src/features/login/login.dart';
 import 'package:flutter/material.dart';
+import 'models/registerServiceFirestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -10,14 +11,14 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
+  final RegisterController _controller = RegisterController();
   String? _name, _email, _password, _accountType = 'Aluno';
 
-  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z]+$").hasMatch(name);
 
+  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z]+$").hasMatch(name);
   bool _isEmailValid(String email) => RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
-
   bool _isPasswordValid(String password) => password.length >= 6;
 
   @override
@@ -123,15 +124,10 @@ class RegisterScreenState extends State<RegisterScreen> {
   }
 
   _submit(name, email, password, acctype) async {
-    print(name);
-    print(email);
-    print(password);
-    print(acctype);
-
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
-        // Autenticação com o servidor
+        _controller.registerUser(name, email, password);
       } catch (e) {
         // print(e);
       }
