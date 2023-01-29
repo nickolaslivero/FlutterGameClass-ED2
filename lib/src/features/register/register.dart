@@ -1,6 +1,6 @@
 import 'package:empreendedorismodigital2/src/features/login/login.dart';
 import 'package:flutter/material.dart';
-import 'models/registerServiceFirestore.dart';
+import 'models/registerServiceAuthFirestore.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,7 +11,7 @@ class RegisterScreen extends StatefulWidget {
 
 class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  final RegisterController _controller = RegisterController();
+  final _service = RegisterServiceAuthFirestore();
   String? _name, _email, _password, _accountType = 'Aluno';
 
 
@@ -127,7 +127,7 @@ class RegisterScreenState extends State<RegisterScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
-        _controller.registerUser(name, email, password);
+        _service.registerUser(name, email, password);
       } catch (e) {
         // print(e);
       }

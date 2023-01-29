@@ -2,7 +2,7 @@ import 'package:empreendedorismodigital2/src/features/register/models/registerSe
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
-class RegisterController implements RegisterControllerInterface
+class RegisterService implements RegisterServiceInterface
 {
   @override
   void registerUser(String name, String email, String password) async {
