@@ -123,7 +123,7 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  _submit(name, email, password, acctype) async {
+  _submit(name, email, password, acctype) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {

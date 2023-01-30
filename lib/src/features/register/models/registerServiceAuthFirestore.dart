@@ -14,7 +14,7 @@ class RegisterServiceAuthFirestore implements RegisterServiceInterface {
       final json = {
         'name': name,
         'email':email,
-        'password': password,
+        'uid': userCredential.user?.uid,
       };
       await user.set(json);
     } catch (e) {

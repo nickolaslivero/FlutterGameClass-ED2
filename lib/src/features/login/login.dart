@@ -1,4 +1,5 @@
 import 'package:empreendedorismodigital2/src/features/home/homeScreen.dart';
+import 'package:empreendedorismodigital2/src/features/login/models/signServiceAuth.dart';
 import 'package:empreendedorismodigital2/src/features/register/register.dart';
 import 'package:empreendedorismodigital2/src/features/resetPassword/reset_password.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,7 @@ class LoginScreen extends StatefulWidget {
 
 class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _service = SiginServiceAuth();
   String? _email, _password;
 
   bool _isEmailValid(String email) => RegExp(
@@ -58,9 +60,18 @@ class LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_email != null && _password != null) {
-                      _submit(_email, _password);
+                      bool wasSuccessful = await _submit(_email, _password);
+                      if (wasSuccessful) {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const HomeScreen()),
+                        );
+                      }
+                      else {
+                        // TODO
+                      }
                     } else {
                       _formKey.currentState!.validate();
                     }
@@ -95,20 +106,12 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _submit(email, password) async {
-    print(email);
-    print(password);
+  Future<bool> _submit(email, password) async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      try {
-        // Autenticação com o servidor
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
-      } catch (e) {
-        //print(e);
-      }
+      return await _service.signUser(email, password);
+    } else {
+      return Future<bool>.value(true);
     }
   }
 }
