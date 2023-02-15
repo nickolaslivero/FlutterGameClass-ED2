@@ -1,3 +1,4 @@
+import 'package:empreendedorismodigital2/src/features/resetPassword/models/resetPasswordServiceAuth.dart';
 import 'package:flutter/material.dart';
 
 class PasswordResetScreen extends StatefulWidget {
@@ -9,6 +10,7 @@ class PasswordResetScreen extends StatefulWidget {
 
 class PasswordResetScreenState extends State<PasswordResetScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _service = ResetPasswordServiceAuth();
   String? _email;
 
   bool _isEmailValid(String email) => RegExp(
@@ -36,11 +38,11 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
                     }
                     return null;
                   },
-                  onSaved: (input) => _email = input!,
+                  onChanged: (input) => _email = input,
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     if (_email != null) {
                       _submit(_email);
                     } else {
@@ -61,8 +63,7 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
-        // Enviar email de redefinição de senha
-        // Exemplo: await auth.sendPasswordResetEmail(_email);
+        _service.resetPasswordWithEmail(email);
         Navigator.pop(context);
       } catch (e) {
         //print(e);

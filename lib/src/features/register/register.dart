@@ -70,6 +70,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                   onChanged: (input) => _password = input,
                 ),
                 const SizedBox(height: 10.0),
+                /*
                 Column(
                   children: <Widget>[
                     RadioListTile(
@@ -93,7 +94,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       },
                     ),
                   ],
-                ),
+                ),*/
                 const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {
