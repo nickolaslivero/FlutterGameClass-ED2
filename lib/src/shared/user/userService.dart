@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class UserService {
   final _firebaseAuth = FirebaseAuth.instance;
-
   CollectionReference users = FirebaseFirestore.instance.collection('users');
 
   User? getUser() {
@@ -38,5 +37,11 @@ class UserService {
       'uid': userUid,
     };
     await user.set(json);
+  }
+
+  void deleteUser() async {
+    String? uid = getUserId();
+    await users.doc(uid).delete();
+    await _firebaseAuth.currentUser?.delete();
   }
 }
