@@ -1,7 +1,7 @@
-import 'package:empreendedorismodigital2/src/features/login/models/siginServiceInterface.dart';
+import 'package:empreendedorismodigital2/src/features/login/models/signinServiceInterface.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class SiginServiceAuth implements SiginServiceInterface {
+class SigninServiceAuth implements SigninServiceInterface {
   final _firebaseAuth = FirebaseAuth.instance;
 
   @override

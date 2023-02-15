@@ -39,9 +39,14 @@ class UserService {
     await user.set(json);
   }
 
-  void deleteUser() async {
+  void deleteCurrentUser() async {
     String? uid = getUserId();
     await users.doc(uid).delete();
+    await _firebaseAuth.currentUser?.delete();
+  }
+
+  void deleteUser(String id) async {
+    await users.doc(id).delete();
     await _firebaseAuth.currentUser?.delete();
   }
 }
