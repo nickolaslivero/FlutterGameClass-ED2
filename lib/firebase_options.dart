@@ -70,7 +70,8 @@ class DefaultFirebaseOptions {
     projectId: 'gameclass-6f9ab',
     databaseURL: 'https://gameclass-6f9ab-default-rtdb.firebaseio.com',
     storageBucket: 'gameclass-6f9ab.appspot.com',
-    iosClientId: '585831821490-clebbspq4jqjpnbsemir2pm9na2sm5b2.apps.googleusercontent.com',
+    iosClientId:
+        '585831821490-clebbspq4jqjpnbsemir2pm9na2sm5b2.apps.googleusercontent.com',
     iosBundleId: 'com.example.empreendedorismodigital2',
   );
 
@@ -81,7 +82,8 @@ class DefaultFirebaseOptions {
     projectId: 'gameclass-6f9ab',
     databaseURL: 'https://gameclass-6f9ab-default-rtdb.firebaseio.com',
     storageBucket: 'gameclass-6f9ab.appspot.com',
-    iosClientId: '585831821490-clebbspq4jqjpnbsemir2pm9na2sm5b2.apps.googleusercontent.com',
+    iosClientId:
+        '585831821490-clebbspq4jqjpnbsemir2pm9na2sm5b2.apps.googleusercontent.com',
     iosBundleId: 'com.example.empreendedorismodigital2',
   );
 }

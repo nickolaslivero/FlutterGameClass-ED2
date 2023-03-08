@@ -1,18 +1,18 @@
-import 'package:empreendedorismodigital2/home_screen.dart';
-import 'package:empreendedorismodigital2/register.dart';
-import 'package:empreendedorismodigital2/reset_password.dart';
+import 'package:empreendedorismodigital2/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  LoginScreenState createState() => LoginScreenState();
+  RegisterScreenState createState() => RegisterScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? _email, _password;
+  String? _name, _email, _password, _accountType = 'Aluno';
+
+  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z]+$").hasMatch(name);
 
   bool _isEmailValid(String email) => RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -24,7 +24,7 @@ class LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Cadastro'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,6 +33,18 @@ class LoginScreenState extends State<LoginScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
+                TextFormField(
+                  decoration: const InputDecoration(labelText: 'Nome'),
+                  validator: (input) {
+                    if (input!.isEmpty) {
+                      return 'Insira um nome válido';
+                    } else if (!_isNameValid(input)) {
+                      return 'Insira um nome sem caracteres especiais ou números';
+                    }
+                    return null;
+                  },
+                  onChanged: (input) => _name = input,
+                ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
                   validator: (input) {
@@ -57,35 +69,50 @@ class LoginScreenState extends State<LoginScreen> {
                   onChanged: (input) => _password = input,
                 ),
                 const SizedBox(height: 10.0),
+                Column(
+                  children: <Widget>[
+                    RadioListTile(
+                      value: 'Aluno',
+                      groupValue: _accountType,
+                      title: const Text('Aluno'),
+                      onChanged: (value) {
+                        setState(() {
+                          _accountType = value!;
+                        });
+                      },
+                    ),
+                    RadioListTile(
+                      value: 'Professor',
+                      groupValue: _accountType,
+                      title: const Text('Professor'),
+                      onChanged: (value) {
+                        setState(() {
+                          _accountType = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {
-                    if (_email != null && _password != null) {
-                      _submit(_email, _password);
+                    if (_name != null && _email != null && _password != null) {
+                      _submit(_name, _email, _password, _accountType);
                     } else {
                       _formKey.currentState!.validate();
                     }
                   },
-                  child: const Text('Entrar'),
+                  child: const Text('Cadastrar'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const RegisterScreen()),
+                          builder: (context) => const LoginScreen()),
                     );
                   },
-                  child: const Text('Não possui conta? Criar Conta'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const PasswordResetScreen()),
-                    );
-                  },
-                  child: const Text('Esqueci minha senha'),
+                  child: const Text('Já possui conta? Logar Conta'),
                 ),
               ],
             ),
@@ -95,19 +122,18 @@ class LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  _submit(email, password) async {
+  _submit(name, email, password, acctype) async {
+    print(name);
     print(email);
     print(password);
+    print(acctype);
+
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
         // Autenticação com o servidor
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreen()),
-        );
       } catch (e) {
-        //print(e);
+        // print(e);
       }
     }
   }

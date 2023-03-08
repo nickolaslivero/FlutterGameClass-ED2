@@ -1,4 +1,5 @@
-import 'package:empreendedorismodigital2/login.dart';
+import 'package:empreendedorismodigital2/home_screen.dart';
+import 'package:empreendedorismodigital2/login_screen.dart';
 import 'package:flutter/material.dart';
 
 // FIREBASE PACKAGES
@@ -12,11 +13,24 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
+  //createUser('teste123@hotmail.com', '123456789');
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  static const MaterialColor customBlack = MaterialColor(0xFF232323, {
+    50: Color(0xFF4C4C4C),
+    100: Color(0xFF3F3F3F),
+    200: Color(0xFF333333),
+    300: Color(0xFF272727),
+    400: Color(0xFF1B1B1B),
+    500: Color(0xFF0E0E0E),
+    600: Color(0xFF0B0B0B),
+    700: Color(0xFF080808),
+    800: Color(0xFF050505),
+    900: Color(0xFF020202),
+  });
+
   const MyApp({super.key});
 
   @override
@@ -25,9 +39,9 @@ class MyApp extends StatelessWidget {
         title: 'GameClass',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: customBlack,
         ),
-        home: const LoginScreen());
+        home: const HomeScreen()); //const LoginScreen());
   }
 }
 

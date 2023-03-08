@@ -1,18 +1,18 @@
-import 'package:empreendedorismodigital2/login.dart';
+import 'package:empreendedorismodigital2/home_screen.dart';
+import 'package:empreendedorismodigital2/register_screen.dart';
+import 'package:empreendedorismodigital2/resetpassword_screen.dart';
 import 'package:flutter/material.dart';
 
-class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  RegisterScreenState createState() => RegisterScreenState();
+  LoginScreenState createState() => LoginScreenState();
 }
 
-class RegisterScreenState extends State<RegisterScreen> {
+class LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? _name, _email, _password, _accountType = 'Aluno';
-
-  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z]+$").hasMatch(name);
+  String? _email, _password;
 
   bool _isEmailValid(String email) => RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
@@ -24,7 +24,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Cadastro'),
+        title: const Text('Login'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -33,18 +33,6 @@ class RegisterScreenState extends State<RegisterScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Nome'),
-                  validator: (input) {
-                    if (input!.isEmpty) {
-                      return 'Insira um nome válido';
-                    } else if (!_isNameValid(input)) {
-                      return 'Insira um nome sem caracteres especiais ou números';
-                    }
-                    return null;
-                  },
-                  onChanged: (input) => _name = input,
-                ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
                   validator: (input) {
@@ -69,50 +57,35 @@ class RegisterScreenState extends State<RegisterScreen> {
                   onChanged: (input) => _password = input,
                 ),
                 const SizedBox(height: 10.0),
-                Column(
-                  children: <Widget>[
-                    RadioListTile(
-                      value: 'Aluno',
-                      groupValue: _accountType,
-                      title: const Text('Aluno'),
-                      onChanged: (value) {
-                        setState(() {
-                          _accountType = value!;
-                        });
-                      },
-                    ),
-                    RadioListTile(
-                      value: 'Professor',
-                      groupValue: _accountType,
-                      title: const Text('Professor'),
-                      onChanged: (value) {
-                        setState(() {
-                          _accountType = value!;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10.0),
                 ElevatedButton(
                   onPressed: () {
-                    if (_name != null && _email != null && _password != null) {
-                      _submit(_name, _email, _password, _accountType);
+                    if (_email != null && _password != null) {
+                      _submit(_email, _password);
                     } else {
                       _formKey.currentState!.validate();
                     }
                   },
-                  child: const Text('Cadastrar'),
+                  child: const Text('Entrar'),
                 ),
                 TextButton(
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
+                          builder: (context) => const RegisterScreen()),
                     );
                   },
-                  child: const Text('Já possui conta? Logar Conta'),
+                  child: const Text('Não possui conta? Criar Conta'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const PasswordResetScreen()),
+                    );
+                  },
+                  child: const Text('Esqueci minha senha'),
                 ),
               ],
             ),
@@ -122,18 +95,19 @@ class RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  _submit(name, email, password, acctype) async {
-    print(name);
+  _submit(email, password) async {
     print(email);
     print(password);
-    print(acctype);
-
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       try {
         // Autenticação com o servidor
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
       } catch (e) {
-        // print(e);
+        //print(e);
       }
     }
   }

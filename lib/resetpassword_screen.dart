@@ -12,7 +12,7 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
   String? _email;
 
   bool _isEmailValid(String email) => RegExp(
-      r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
 
   @override
@@ -40,7 +40,7 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
-                  onPressed: (){
+                  onPressed: () {
                     if (_email != null) {
                       _submit(_email);
                     } else {
