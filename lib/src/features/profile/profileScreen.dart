@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../shared/user/userService2.dart';
 import '../editProfile/editProfileScreen.dart';
+
+
+final AuthService authService = AuthService();
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -19,13 +23,24 @@ class ProfileScreen extends StatelessWidget {
               backgroundImage: AssetImage('assets/avatar.png'),
             ),
             const SizedBox(height: 16),
-            const Text(
-              'Farias Cunha',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            FutureBuilder<String?>(
+              future: authService.getUsername(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Text(
+                    snapshot.data!,
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  );
+                } else if (snapshot.hasError) {
+                  return Text('Erro ao buscar nome de usuário');
+                } else {
+                  return CircularProgressIndicator();
+                }
+              },
             ),
             const SizedBox(height: 8),
-            const Text(
-              'tiago.fatias@uea.com',
+            Text(
+              authService.getEmail() ?? "",
               style: TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),

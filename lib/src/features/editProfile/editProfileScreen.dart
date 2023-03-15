@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/user/userService2.dart';
+
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
 
@@ -9,6 +11,7 @@ class EditProfileScreen extends StatefulWidget {
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
+  final AuthService _service = AuthService();
 
   String? _name;
   String? _address;
@@ -24,8 +27,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           IconButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                // Salva as informações do usuário
-                // e volta para a tela de perfil
+                if (_name != null) {
+                  _service.setUserName(_name!);
+                }
                 Navigator.pop(context);
               }
             },

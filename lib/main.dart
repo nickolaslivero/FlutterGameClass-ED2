@@ -41,6 +41,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: customBlack,
         ),
-        home: const HomeScreen());
+        home: const LoginScreen());
   }
 }
