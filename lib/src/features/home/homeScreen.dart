@@ -120,9 +120,44 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Tab'),
+    return  Column(
+      children: [
+        Card(
+          color: Colors.black12,
+          child: Column(
+            children: const [
+              ListTile(
+                title: Text('Matemática'),
+                subtitle: Text('Você não possui tarefas pendentes.'),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          color: Colors.black12,
+          child: Column(
+            children: const [
+              ListTile(
+                title: Text('Empreendedorismo'),
+                subtitle: Text('Você não possui tarefas pendentes.'),
+              ),
+            ],
+          ),
+        ),
+        Card(
+          color: Colors.black12,
+          child: Column(
+            children: const [
+              ListTile(
+                title: Text('Programação'),
+                subtitle: Text('Você não possui tarefas pendentes.'),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
+
   }
 }
 
