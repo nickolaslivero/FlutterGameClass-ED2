@@ -18,6 +18,31 @@ class AuthService {
     return snapshot.get('name');
   }
 
+  Future<Map<String, Map<String, String>>> getClasses() async {
+    final docrefUser = FirebaseFirestore.instance.collection('users').doc(currentUser!.uid);
+    final snapshotUser = await docrefUser.get();
+
+    if (snapshotUser.exists) {
+      final List<dynamic> arrayField = snapshotUser.get('classes');
+      final List<String> classesId = List<String>.from(arrayField);
+      Map<String, Map<String, String>> dict = {};
+      for (int i = 0; i < classesId.length; i++) {
+        var docrefClass = FirebaseFirestore.instance.collection('classes').doc(classesId[i]);
+        var snapshotClass = await docrefClass.get();
+        String className = snapshotClass.get('name');
+        String idProfessor = snapshotClass.get('idProfessor');
+        String codeClass = snapshotClass.get('codeClass');
+        var docrefProfessor = FirebaseFirestore.instance.collection('users').doc(idProfessor);
+        var snapshotProfessor = await docrefProfessor.get();
+        String professorName = snapshotProfessor.get('name');
+        dict.putIfAbsent(classesId[i], () => { 'name': className, 'professorName': professorName, 'codeClass': codeClass });
+      }
+      return dict;
+    } else {
+      throw Exception('Documento não encontrado!');
+    }
+  }
+
   // Retorna o email do usuário atualmente logado
   String? getEmail() {
     final user = _auth.currentUser;

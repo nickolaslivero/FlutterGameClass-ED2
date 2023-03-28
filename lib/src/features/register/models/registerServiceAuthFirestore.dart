@@ -11,10 +11,13 @@ class RegisterServiceAuthFirestore implements RegisterServiceInterface {
     try {
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
       final user = _fireStore.collection('users').doc(userCredential.user?.uid);
+      List<String> classes = [];
       final json = {
         'name': name,
         'email':email,
         'uid': userCredential.user?.uid,
+        'points': 0,
+        'classes': classes
       };
       await user.set(json);
     } catch (e) {

@@ -1,5 +1,6 @@
 import 'package:empreendedorismodigital2/src/features/home/homeScreen.dart';
 import 'package:empreendedorismodigital2/src/features/login/login.dart';
+import 'package:empreendedorismodigital2/src/shared/user/userService2.dart';
 import 'package:flutter/material.dart';
 
 // FIREBASE PACKAGES
