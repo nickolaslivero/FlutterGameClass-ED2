@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../shared/user/userService2.dart';
+import '../class/classScreen.dart';
 import '../login/login.dart';
 import '../profile/profileScreen.dart';
 import '../settings/settingsScreen.dart';
@@ -139,7 +140,7 @@ class HomeTab extends StatelessWidget {
                 ClassCard(
                   title: item['name'] ?? 'Não foi possível carregar o nome',
                   subtitle: item['codeClass'] ?? 'Não foi possível carregar o código',
-                  idClass: item['classId'] ?? '',
+                  classId: item['classId'] ?? '',
                 ),
             ],
           );
@@ -158,12 +159,12 @@ class ClassCard extends StatelessWidget {
     Key? key,
     required this.title,
     required this.subtitle,
-    required this.idClass
+    required this.classId
   }) : super(key: key);
 
   final String title;
   final String subtitle;
-  final String idClass;
+  final String classId;
 
   @override
   Widget build(BuildContext context) {
@@ -173,7 +174,7 @@ class ClassCard extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LoginScreen()),
+            MaterialPageRoute(builder: (context) => MessageScreen(classId: classId)),
           );
         },
         child: Column(
