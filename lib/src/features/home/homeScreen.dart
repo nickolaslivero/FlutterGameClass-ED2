@@ -15,11 +15,10 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
-
   //Future<Map<String, Map<String, String>>> dict = _service.getClasses();
 
   final List<Widget> _children = [
-    const HomeTab(),
+    HomeTab(),
     const SearchTab(),
     const ProfileTab(),
   ];
@@ -121,49 +120,71 @@ class _HomeScreenState extends State<HomeScreen> {
 }
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({Key? key}) : super(key: key);
+  late Future<List<Map<String, String>>> dictList;
+
+  HomeTab({Key? key}) : super(key: key) {
+    dictList = _service.getClasses();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        ClassCard(
-            title: 'Matemática',
-            subtitle: 'Você não possui tarefas pendentes.'),
-        ClassCard(
-            title: 'Empreendedorismo',
-            subtitle: 'Você não possui tarefas pendentes.'),
-        ClassCard(
-            title: 'Programação',
-            subtitle: 'Você não possui tarefas pendentes.'),
-        //MyListView()
-      ],
+    return FutureBuilder<List<Map<String, String>>>(
+      future: dictList,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          final list = snapshot.data!;
+          return Column(
+            children: [
+              for (final item in list)
+                ClassCard(
+                  title: item['name'] ?? 'Não foi possível carregar o nome',
+                  subtitle: item['codeClass'] ?? 'Não foi possível carregar o código',
+                  idClass: item['idClass']!,
+                ),
+            ],
+          );
+        } else if (snapshot.hasError) {
+          return Text('Erro ao carregar classes');
+        } else {
+          return CircularProgressIndicator();
+        }
+      },
     );
   }
 }
 
 class ClassCard extends StatelessWidget {
-  const ClassCard({
+  ClassCard({
     Key? key,
     required this.title,
     required this.subtitle,
+    required this.idClass
   }) : super(key: key);
 
   final String title;
   final String subtitle;
+  final String idClass;
 
   @override
   Widget build(BuildContext context) {
     return Card(
       color: Colors.black12,
-      child: Column(
-        children: [
-          ListTile(
-            title: Text(title),
-            subtitle: Text(subtitle),
-          ),
-        ],
-      ),
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => LoginScreen()),
+          );
+        },
+        child: Column(
+          children: [
+            ListTile(
+              title: Text(title ?? ''),
+              subtitle: Text(subtitle ?? ''),
+            ),
+          ],
+        ),
+      )
     );
   }
 }
