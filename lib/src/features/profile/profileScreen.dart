@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../shared/user/userService2.dart';
 import '../editProfile/editProfileScreen.dart';
 
-
 final AuthService authService = AuthService();
 
 class ProfileScreen extends StatefulWidget {
@@ -13,12 +12,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-  void _refreshProfileScreen(){
-    setState(() {
-
-    });
+  void _refreshProfileScreen() {
+    setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,19 +45,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 if (snapshot.hasData) {
                   return Text(
                     snapshot.data!,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   );
                 } else if (snapshot.hasError) {
-                  return Text('Erro ao buscar nome de usuário');
+                  return const Text('Erro ao buscar nome de usuário');
                 } else {
-                  return CircularProgressIndicator();
+                  return const CircularProgressIndicator();
                 }
               },
             ),
             const SizedBox(height: 8),
             Text(
               authService.getEmail() ?? "",
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
