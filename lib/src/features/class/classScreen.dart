@@ -131,11 +131,6 @@ class _MessageScreenState extends State<MessageScreen> {
             case 1:
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const TaskScreen()));
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => TaskScreen(),
-                  ));
               break;
           }
         },
