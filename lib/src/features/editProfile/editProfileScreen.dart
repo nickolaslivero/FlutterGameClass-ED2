@@ -14,8 +14,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final AuthService _service = AuthService();
 
   String? _name;
-  String? _address;
-  String? _selectedGender;
+  String? _email;
   String? _profileImage;
 
   @override
@@ -77,36 +76,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 const SizedBox(height: 16),
                 TextFormField(
                   decoration: const InputDecoration(
-                    labelText: 'Endereço',
+                    labelText: 'E-mail',
                   ),
-                  initialValue: _address,
+                  initialValue: _email,
                   onChanged: (value) {
                     setState(() {
-                      _address = value;
+                      _email = value;
                     });
                   },
-                ),
-                const SizedBox(height: 16),
-                DropdownButtonFormField<String>(
-                  decoration: const InputDecoration(
-                    labelText: 'Gênero',
-                  ),
-                  value: _selectedGender,
-                  onChanged: (value) {
-                    setState(() {
-                      _selectedGender = value;
-                    });
-                  },
-                  items: [
-                    DropdownMenuItem(
-                      value: 'masculino',
-                      child: const Text('Masculino'),
-                    ),
-                    DropdownMenuItem(
-                      value: 'feminino',
-                      child: const Text('Feminino'),
-                    ),
-                  ],
                 ),
               ],
             ),

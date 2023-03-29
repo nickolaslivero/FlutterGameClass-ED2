@@ -44,7 +44,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                  onSaved: (input) => _name = input,
+                  onChanged: (input) => _name = input,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Email'),
@@ -54,7 +54,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                  onSaved: (input) => _email = input,
+                  onChanged: (input) => _email = input,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Senha'),
@@ -67,7 +67,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     }
                     return null;
                   },
-                  onSaved: (input) => _password = input,
+                  onChanged: (input) => _password = input,
                 ),
                 const SizedBox(height: 10.0),
                 /*

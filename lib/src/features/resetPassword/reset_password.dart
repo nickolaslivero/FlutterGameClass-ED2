@@ -38,7 +38,7 @@ class PasswordResetScreenState extends State<PasswordResetScreen> {
                     }
                     return null;
                   },
-                  onSaved: (input) => _email = input,
+                  onChanged: (input) => _email = input,
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
