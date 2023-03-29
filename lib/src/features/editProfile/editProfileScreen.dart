@@ -15,7 +15,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   String? _name;
   String? _email;
-  String? _profileImage;
 
   @override
   Widget build(BuildContext context) {

@@ -5,14 +5,33 @@ import '../editProfile/editProfileScreen.dart';
 
 final AuthService authService = AuthService();
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  void _refreshProfileScreen(){
+    setState(() {
+
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Perfil'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              _refreshProfileScreen();
+            },
+            icon: const Icon(Icons.refresh),
+          ),
+        ],
       ),
       body: Center(
         child: Column(
