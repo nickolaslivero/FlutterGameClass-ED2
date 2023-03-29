@@ -15,7 +15,7 @@ class RegisterScreenState extends State<RegisterScreen> {
   String? _name, _email, _password, _accountType = 'Aluno';
 
 
-  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z]+$").hasMatch(name);
+  bool _isNameValid(String name) => RegExp(r"^[a-zA-Z ]+$").hasMatch(name);
   bool _isEmailValid(String email) => RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
