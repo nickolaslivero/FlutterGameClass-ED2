@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../shared/class/classService.dart';
+import '../task/taskScreen.dart';
 
 class MessageScreen extends StatefulWidget {
   final String classId;
@@ -127,7 +128,10 @@ class _MessageScreenState extends State<MessageScreen> {
               Navigator.pop(context);
               break;
             case 1:
-              Navigator.popUntil(context, ModalRoute.withName('/'));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TaskScreen(classId: widget.classId)),
+              );
               break;
           }
         },
