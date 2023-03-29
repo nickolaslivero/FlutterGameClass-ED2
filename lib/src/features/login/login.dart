@@ -43,7 +43,7 @@ class LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  onChanged: (input) => _email = input,
+                  onSaved: (input) => _email = input,
                 ),
                 TextFormField(
                   decoration: const InputDecoration(labelText: 'Senha'),
@@ -56,7 +56,7 @@ class LoginScreenState extends State<LoginScreen> {
                     }
                     return null;
                   },
-                  onChanged: (input) => _password = input,
+                  onSaved: (input) => _password = input,
                 ),
                 const SizedBox(height: 10.0),
                 ElevatedButton(
