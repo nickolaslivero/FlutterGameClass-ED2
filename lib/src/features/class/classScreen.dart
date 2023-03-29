@@ -28,6 +28,12 @@ class _MessageScreenState extends State<MessageScreen> {
     super.dispose();
   }
 
+  void _messagesUpdate() {
+    setState(() {
+      _messagesFuture = ClassService().getMessages(widget.classId);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,8 +97,9 @@ class _MessageScreenState extends State<MessageScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        // Enviar mensagem
+                        ClassService().sendMessage(_messageController.text, widget.classId);
                         _messageController.clear();
+                        _messagesUpdate();
                       }
                     },
                     child: Text('Enviar'),

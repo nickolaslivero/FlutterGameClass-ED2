@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ClassService {
   Future<List<Map<String, String>>> getMessages(String classId) async {
@@ -15,6 +16,17 @@ class ClassService {
       dictList.add({ 'idMessage': document.id, 'idSender': idSender, 'sender': senderName, 'content': content });
     }
     return dictList;
+  }
+
+  Future<void> sendMessage(String content, String classId) async {
+    CollectionReference classMessages = FirebaseFirestore.instance.collection('classes').doc(classId).collection('messages');
+    DocumentReference newMessage = classMessages.doc();
+    await newMessage.set({
+      'content': content,
+      'id': newMessage.id,
+      'idClass': classId,
+      'idSender': FirebaseAuth.instance.currentUser!.uid
+    });
   }
 
   Future<List<Map<String, String>>> getTasks(String classId) async {
