@@ -98,7 +98,8 @@ class _MessageScreenState extends State<MessageScreen> {
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        ClassService().sendMessage(_messageController.text, widget.classId);
+                        ClassService().sendMessage(
+                            _messageController.text, widget.classId);
                         _messageController.clear();
                         _messagesUpdate();
                       }
@@ -128,15 +129,14 @@ class _MessageScreenState extends State<MessageScreen> {
               Navigator.pop(context);
               break;
             case 1:
-<<<<<<< HEAD
-              Navigator.push(context, MaterialPageRoute( builder: (context) => const TaskScreen()));
-=======
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const TaskScreen()));
               Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => TaskScreen(classId: widget.classId)),
-              );
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => TaskScreen(),
+                  ));
               break;
->>>>>>> 86b68835589a902a697d27a3b878180df2eb2bac
           }
         },
       ),
@@ -227,5 +227,3 @@ class TaskCard extends StatelessWidget {
     );
   }
 }
-
-
