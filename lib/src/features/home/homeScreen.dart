@@ -4,7 +4,7 @@ import '../login/login.dart';
 import '../profile/profileScreen.dart';
 import '../settings/settingsScreen.dart';
 
- final _service = AuthService();
+final _service = AuthService();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -126,7 +126,7 @@ class HomeTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
+      children: [
         ClassCard(
             title: 'Matemática',
             subtitle: 'Você não possui tarefas pendentes.'),
@@ -136,6 +136,7 @@ class HomeTab extends StatelessWidget {
         ClassCard(
             title: 'Programação',
             subtitle: 'Você não possui tarefas pendentes.'),
+        //MyListView()
       ],
     );
   }
@@ -185,6 +186,37 @@ class ProfileTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text('Task Tab'),
+    );
+  }
+}
+
+class MyListView extends StatelessWidget {
+  Future<List<Map<String, String>>> dictList = _service.getClasses();
+
+  MyListView({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    List<Container> containers = [];
+    dictList.then((list) {
+      int length = list.length;
+      for (int i = 0; i < length; i++) {
+        containers.add(
+          Container(
+            height: 100,
+            width: double.infinity,
+            color: Colors.blue,
+            child: Text(list[i]['name'] ?? ''),
+          ),
+        );
+      }
+    });
+
+    return ListView.builder(
+      itemCount: containers.length,
+      itemBuilder: (context, index) {
+        return containers[index];
+      },
     );
   }
 }
