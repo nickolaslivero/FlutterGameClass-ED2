@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import '../../shared/user/userService2.dart';
 import '../login/login.dart';
 import '../profile/profileScreen.dart';
 import '../settings/settingsScreen.dart';
+
+ final _service = AuthService();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
+  //Future<Map<String, Map<String, String>>> dict = _service.getClasses();
 
   final List<Widget> _children = [
     const HomeTab(),
@@ -120,44 +125,45 @@ class HomeTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
-      children: [
-        Card(
-          color: Colors.black12,
-          child: Column(
-            children: const [
-              ListTile(
-                title: Text('Matemática'),
-                subtitle: Text('Você não possui tarefas pendentes.'),
-              ),
-            ],
-          ),
-        ),
-        Card(
-          color: Colors.black12,
-          child: Column(
-            children: const [
-              ListTile(
-                title: Text('Empreendedorismo'),
-                subtitle: Text('Você não possui tarefas pendentes.'),
-              ),
-            ],
-          ),
-        ),
-        Card(
-          color: Colors.black12,
-          child: Column(
-            children: const [
-              ListTile(
-                title: Text('Programação'),
-                subtitle: Text('Você não possui tarefas pendentes.'),
-              ),
-            ],
-          ),
-        ),
+    return Column(
+      children: const [
+        ClassCard(
+            title: 'Matemática',
+            subtitle: 'Você não possui tarefas pendentes.'),
+        ClassCard(
+            title: 'Empreendedorismo',
+            subtitle: 'Você não possui tarefas pendentes.'),
+        ClassCard(
+            title: 'Programação',
+            subtitle: 'Você não possui tarefas pendentes.'),
       ],
     );
+  }
+}
 
+class ClassCard extends StatelessWidget {
+  const ClassCard({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+  }) : super(key: key);
+
+  final String title;
+  final String subtitle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.black12,
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(title),
+            subtitle: Text(subtitle),
+          ),
+        ],
+      ),
+    );
   }
 }
 
