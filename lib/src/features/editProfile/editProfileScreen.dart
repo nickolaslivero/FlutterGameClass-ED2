@@ -1,3 +1,4 @@
+import 'package:empreendedorismodigital2/src/features/profile/profileScreen.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/user/userService2.dart';
@@ -29,6 +30,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   _service.setUserName(_name!);
                 }
                 Navigator.pop(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ProfileScreen()),
+                );
+
               }
             },
             icon: const Icon(Icons.save),
