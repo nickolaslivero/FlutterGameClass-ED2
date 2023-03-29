@@ -100,14 +100,14 @@ class RegisterScreenState extends State<RegisterScreen> {
                   onPressed: () {
                     if (_name != null && _email != null && _password != null) {
                       _submit(_name, _email, _password, _accountType);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()),
+                      );
                     } else {
                       _formKey.currentState!.validate();
                     }
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                    );
                   },
                   child: const Text('Cadastrar'),
                 ),
