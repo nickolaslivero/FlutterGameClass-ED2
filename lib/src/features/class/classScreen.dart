@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../shared/class/classService.dart';
+import '../task/taskScreen.dart';
 
 class MessageScreen extends StatefulWidget {
   final String classId;
@@ -127,11 +128,104 @@ class _MessageScreenState extends State<MessageScreen> {
               Navigator.pop(context);
               break;
             case 1:
-              Navigator.popUntil(context, ModalRoute.withName('/'));
+<<<<<<< HEAD
+              Navigator.push(context, MaterialPageRoute( builder: (context) => const TaskScreen()));
+=======
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TaskScreen(classId: widget.classId)),
+              );
               break;
+>>>>>>> 86b68835589a902a697d27a3b878180df2eb2bac
           }
         },
       ),
     );
   }
 }
+
+class TaskScreen extends StatelessWidget {
+  const TaskScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Tarefas'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              const Text(
+                'Tarefas a serem feitas:',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 16),
+              TaskCard(
+                title: 'Tarefa 1',
+                description: 'Descrição da tarefa 1',
+                date: '20/05/2022',
+              ),
+              TaskCard(
+                title: 'Tarefa 2',
+                description: 'Descrição da tarefa 2',
+                date: '25/05/2022',
+              ),
+              TaskCard(
+                title: 'Tarefa 3',
+                description: 'Descrição da tarefa 3',
+                date: '30/05/2022',
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TaskCard extends StatelessWidget {
+  final String title;
+  final String description;
+  final String date;
+
+  const TaskCard({
+    Key? key,
+    required this.title,
+    required this.description,
+    required this.date,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text(description),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const Icon(Icons.calendar_today),
+                const SizedBox(width: 8),
+                Text(date),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+

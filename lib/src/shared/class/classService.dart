@@ -40,7 +40,7 @@ class ClassService {
       String idProfessor = document.get('idProfessor');
       String title = document.get('title');
       String isComplete = document.get('isComplete').toString();
-      String points = document.get('points');
+      String points = document.get('points').toString();
       var docrefProfessor = FirebaseFirestore.instance.collection('users').doc(idProfessor);
       var snapshotProfessor = await docrefProfessor.get();
       String professorName = snapshotProfessor.get('name');
