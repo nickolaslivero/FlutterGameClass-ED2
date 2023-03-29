@@ -18,9 +18,8 @@ class AuthService {
     return snapshot.get('name');
   }
 
-  Future<List<Map<String, String>>> getClasses(String id) async {
-    // currentUser!.uid
-    final docrefUser = FirebaseFirestore.instance.collection('users').doc(id);
+  Future<List<Map<String, String>>> getClasses() async {
+    final docrefUser = FirebaseFirestore.instance.collection('users').doc(currentUser!.uid);
     final snapshotUser = await docrefUser.get();
 
     if (snapshotUser.exists) {
