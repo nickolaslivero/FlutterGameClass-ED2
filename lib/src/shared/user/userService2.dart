@@ -18,14 +18,15 @@ class AuthService {
     return snapshot.get('name');
   }
 
-  Future<Map<String, Map<String, String>>> getClasses() async {
-    final docrefUser = FirebaseFirestore.instance.collection('users').doc(currentUser!.uid);
+  Future<List<Map<String, String>>> getClasses(String id) async {
+    // currentUser!.uid
+    final docrefUser = FirebaseFirestore.instance.collection('users').doc(id);
     final snapshotUser = await docrefUser.get();
 
     if (snapshotUser.exists) {
       final List<dynamic> arrayField = snapshotUser.get('classes');
       final List<String> classesId = List<String>.from(arrayField);
-      Map<String, Map<String, String>> dict = {};
+      List<Map<String, String>> dictList = [];
       for (int i = 0; i < classesId.length; i++) {
         var docrefClass = FirebaseFirestore.instance.collection('classes').doc(classesId[i]);
         var snapshotClass = await docrefClass.get();
@@ -35,9 +36,9 @@ class AuthService {
         var docrefProfessor = FirebaseFirestore.instance.collection('users').doc(idProfessor);
         var snapshotProfessor = await docrefProfessor.get();
         String professorName = snapshotProfessor.get('name');
-        dict.putIfAbsent(classesId[i], () => { 'name': className, 'professorName': professorName, 'codeClass': codeClass });
+        dictList.add({ 'classId': classesId[i], 'name': className, 'professorName': professorName, 'codeClass': codeClass });
       }
-      return dict;
+      return dictList;
     } else {
       throw Exception('Documento não encontrado!');
     }
