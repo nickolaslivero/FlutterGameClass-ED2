@@ -38,7 +38,7 @@ class _MessageScreenState extends State<MessageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mensagens'),
+        title: const Text('Mensagens'),
       ),
       body: Column(
         children: [
@@ -63,9 +63,9 @@ class _MessageScreenState extends State<MessageScreen> {
                     },
                   );
                 } else if (snapshot.hasError) {
-                  return Text('Erro ao carregar as mensagens');
+                  return const Text('Erro ao carregar as mensagens');
                 } else {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -87,13 +87,13 @@ class _MessageScreenState extends State<MessageScreen> {
                         }
                         return null;
                       },
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Mensagem',
                         border: OutlineInputBorder(),
                       ),
                     ),
                   ),
-                  SizedBox(width: 16.0),
+                  const SizedBox(width: 16.0),
                   ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -102,7 +102,7 @@ class _MessageScreenState extends State<MessageScreen> {
                         _messagesUpdate();
                       }
                     },
-                    child: Text('Enviar'),
+                    child: const Text('Enviar'),
                   ),
                 ],
               ),
@@ -112,13 +112,13 @@ class _MessageScreenState extends State<MessageScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.arrow_back),
-            label: 'Voltar',
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.menu),
+            label: 'Mensagens',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Início',
+          const BottomNavigationBarItem(
+            icon: Icon(Icons.task),
+            label: 'Tarefas',
           ),
         ],
         onTap: (index) {
