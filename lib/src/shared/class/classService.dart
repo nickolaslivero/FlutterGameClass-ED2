@@ -25,12 +25,13 @@ class ClassService {
     for (var document in documents) {
       String content = document.get('content');
       String idProfessor = document.get('idProfessor');
+      String title = document.get('title');
       String isComplete = document.get('isComplete').toString();
       String points = document.get('points');
       var docrefProfessor = FirebaseFirestore.instance.collection('users').doc(idProfessor);
       var snapshotProfessor = await docrefProfessor.get();
       String professorName = snapshotProfessor.get('name');
-      dictList.add({ 'idTask': document.id, 'idSender': idProfessor, 'sender': professorName, 'content': content, 'isComplete': isComplete, 'points': points });
+      dictList.add({ 'idTask': document.id, 'title': title, 'idSender': idProfessor, 'sender': professorName, 'content': content, 'isComplete': isComplete, 'points': points });
     }
     return dictList;
   }

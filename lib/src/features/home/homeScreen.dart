@@ -139,7 +139,7 @@ class HomeTab extends StatelessWidget {
                 ClassCard(
                   title: item['name'] ?? 'Não foi possível carregar o nome',
                   subtitle: item['codeClass'] ?? 'Não foi possível carregar o código',
-                  idClass: item['idClass']!,
+                  idClass: item['idClass'] ?? '',
                 ),
             ],
           );
