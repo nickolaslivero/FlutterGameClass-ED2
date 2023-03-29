@@ -103,6 +103,11 @@ class RegisterScreenState extends State<RegisterScreen> {
                     } else {
                       _formKey.currentState!.validate();
                     }
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const LoginScreen()),
+                    );
                   },
                   child: const Text('Cadastrar'),
                 ),
