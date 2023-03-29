@@ -4,7 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class ClassService {
   Future<List<Map<String, String>>> getMessages(String classId) async {
     final classesRef = FirebaseFirestore.instance.collection('classes').doc(classId).collection('messages');
-    final snapshot = await classesRef.get();
+    final snapshot = await classesRef.orderBy('createdAt', descending: true).get();
     final List<QueryDocumentSnapshot> documents = snapshot.docs;
     List<Map<String, String>> dictList = [];
     for (var document in documents) {
@@ -25,7 +25,8 @@ class ClassService {
       'content': content,
       'id': newMessage.id,
       'idClass': classId,
-      'idSender': FirebaseAuth.instance.currentUser!.uid
+      'idSender': FirebaseAuth.instance.currentUser!.uid,
+      'createdAt': FieldValue.serverTimestamp()
     });
   }
 
